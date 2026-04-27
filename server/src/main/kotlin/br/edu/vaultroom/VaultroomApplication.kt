@@ -9,3 +9,4 @@ class VaultroomApplication
 fun main(args: Array<String>) {
 	runApplication<VaultroomApplication>(*args)
 }
+

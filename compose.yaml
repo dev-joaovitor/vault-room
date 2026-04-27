@@ -40,6 +40,7 @@ services:
       - "8080:8080"
     volumes:
       - ./server:/app
+      - /app/build
       - vaultroom_gradle_cache:/app/.gradle
     depends_on:
       database:

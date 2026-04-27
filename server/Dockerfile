@@ -1,12 +1,12 @@
-FROM gradle:8.7.0-jdk21-alpine AS base
+FROM gradle:9.4.1-jdk21-alpine AS base
 
 WORKDIR /app
 
 ENV GRADLE_USER_HOME=/app/.gradle
 
 FROM base AS development
-# The -t (continuous) flag combined with Spring DevTools enables hot reload
-ENTRYPOINT ["gradle", "bootRun", "--continuous", "-PskipDownload=true"]
+
+ENTRYPOINT ["gradle", "bootRun", "-PskipDownload=true"]
 
 FROM base AS builder
 COPY --chown=gradle:gradle . .
