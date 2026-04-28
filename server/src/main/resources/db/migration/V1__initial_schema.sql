@@ -57,5 +57,5 @@ INSERT INTO product_types (id, name) VALUES
 INSERT INTO register_types (id, slug, name) VALUES
 (1, 'add', 'Adicionar'),
 (2, 'remove', 'Remover'),
-(3, 'change_quantity', 'Corrigir quantity'),
+(3, 'change_quantity', 'Corrigir quantidade'),
 (4, 'change_product', 'Corrigir produto');
