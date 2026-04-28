@@ -24,7 +24,7 @@ services:
     env_file:
       - .env.development
     ports:
-      - "80:5433"
+      - "80:80"
     networks:
       - "vaultroom"
 
