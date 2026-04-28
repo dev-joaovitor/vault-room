@@ -3,3 +3,9 @@ spring:
     name: vaultroom
   jackson:
     property-naming-strategy: SNAKE_CASE
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    baseline-on-migrate: true

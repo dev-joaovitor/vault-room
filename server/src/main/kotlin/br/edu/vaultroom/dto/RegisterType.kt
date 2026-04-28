@@ -17,6 +17,6 @@ data class RegisterType(
 
     val name: String,
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     val createdAt: Instant = Instant.now()
 )

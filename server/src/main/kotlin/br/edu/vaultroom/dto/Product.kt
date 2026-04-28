@@ -9,10 +9,15 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+
+import org.hibernate.annotations.SoftDelete
+import org.hibernate.annotations.SoftDeleteType
+
 import java.time.Instant
 
 @Entity
 @Table(name = "products")
+@SoftDelete(columnName = "deleted_at", strategy = SoftDeleteType.TIMESTAMP)
 data class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +31,18 @@ data class Product(
     @Column(name = "price_by_unit")
     var priceByUnit: Double,
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     val createdAt: Instant = Instant.now(),
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     val updatedAt: Instant = Instant.now(),
 
-    @Column(name = "deleted_at")
+    @Column(
+        name = "deleted_at",
+        columnDefinition = "TIMESTAMP WITH TIME ZONE",
+        insertable = false,
+        updatable = false
+    )
     val deletedAt: Instant? = null,
 
     @ManyToOne

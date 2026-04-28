@@ -4,4 +4,6 @@ import br.edu.vaultroom.repository.RegisterTypeRepository
 import org.springframework.stereotype.Service
 
 @Service
-class RegisterTypeService(private val repo: RegisterTypeRepository) { }
+class RegisterTypeService(private val repo: RegisterTypeRepository) {
+    fun findAll() = repo.findAll()
+}
