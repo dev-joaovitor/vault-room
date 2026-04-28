@@ -15,6 +15,7 @@ data class RegisterType(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    val slug: String,
     val name: String,
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
