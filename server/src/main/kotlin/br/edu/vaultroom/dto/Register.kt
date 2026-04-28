@@ -19,7 +19,7 @@ data class Register(
 
     var description: String,
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     val createdAt: Instant = Instant.now(),
 
     @ManyToOne
