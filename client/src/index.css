@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --wood-dark: #3D2B1F;
+  --wood-medium: #704232;
+  --parchment-bg: #F2E7D5;
+  --wine-primary: #5D0E1A;
+  --vault-gold: #C5A059;
+  --text-rich: #1A120B;
+}
+
+body {
+  margin: 0;
+  background: var(--parchment-bg);
+  color: var(--text-rich);
+  font-family: Arial, sans-serif;
+}
+
+.title-font {
+  font-family: Georgia, "Times New Roman", serif;
+}
