@@ -1,11 +1,17 @@
 package br.edu.vaultroom.dto
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.Table
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
 import org.hibernate.annotations.SoftDelete
 import org.hibernate.annotations.SoftDeleteType
 import java.time.Instant
@@ -35,5 +41,5 @@ data class Vault(
         insertable = false,
         updatable = false
     )
-    val deletedAt: Instant? = null
+    var deletedAt: Instant? = null,
 )

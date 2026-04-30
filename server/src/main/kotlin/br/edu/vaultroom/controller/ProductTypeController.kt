@@ -13,22 +13,14 @@ class ProductTypeController(private val service: ProductTypeService) {
 
     @GetMapping("/types")
     fun getTypes(): ResponseEntity<Map<String, Any>> {
-        return try {
-            ResponseEntity
-                .status(HttpStatus.OK)
-                .body(mapOf(
-                    "success" to true,
-                    "message" to "Product types successfuly fetched",
-                    "data" to service.findAll()
-                ))
-        } catch (e: Exception) {
-            ResponseEntity
-                .status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(mapOf(
-                    "success" to false,
-                    "message" to "Failed to fetch types: " + e.message,
-                    "data" to listOf<Any>()
-                ))
-        }
+        val foundTypes = service.findAll()
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(mapOf(
+                "success" to true,
+                "message" to "Product types successfuly fetched",
+                "data" to foundTypes
+            ))
     }
 }
