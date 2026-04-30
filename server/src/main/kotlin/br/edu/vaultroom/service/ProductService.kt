@@ -2,6 +2,7 @@ package br.edu.vaultroom.service
 
 import br.edu.vaultroom.dto.Vault
 import br.edu.vaultroom.dto.Product
+import br.edu.vaultroom.dto.Register
 import br.edu.vaultroom.dto.requests.ProductPatchQuantityRequest
 import br.edu.vaultroom.dto.requests.ProductPatchRequest
 import br.edu.vaultroom.dto.requests.ProductPostRequest
@@ -17,6 +18,7 @@ class ProductService(
     private val repo: ProductRepository,
     private val vaultService: VaultService,
     private val productTypeService: ProductTypeService,
+    private val registerService: RegisterService,
     private val registerTypeService: RegisterTypeService
 ) {
     fun findAll() = repo.findAll()
@@ -30,12 +32,14 @@ class ProductService(
         val foundVault = vaultService.findById(data.vault_id)
         val foundType = productTypeService.findById(data.type_id)
 
+        foundVault.productQuantity += 1
+
         return repo.save(
             Product(
                 name = data.name,
                 quantity = data.quantity,
                 priceByUnit = data.price_by_unit,
-                totalPrice = data.price_by_unit * data.quantity,
+                totalPrice = data.price_by_unit * data.quantity.toBigDecimal(),
                 vault = foundVault,
                 type = foundType
             )
@@ -48,7 +52,7 @@ class ProductService(
 
         foundProduct.name = data.name
         foundProduct.priceByUnit = data.price_by_unit
-        foundProduct.totalPrice = foundProduct.quantity * data.price_by_unit
+        foundProduct.totalPrice = foundProduct.quantity.toBigDecimal() * data.price_by_unit
 
         data.type_id?.let {
             val foundType = productTypeService.findById(data.type_id)
@@ -63,13 +67,22 @@ class ProductService(
         val foundProduct = this.findById(id)
         val foundRegisterType = registerTypeService.findById(data.type_id)
 
+        val previousQuantity = foundProduct.quantity
+
         when (foundRegisterType.slug) {
             "add" -> foundProduct.quantity += data.quantity
             "remove" -> foundProduct.quantity -= data.quantity
             "change_quantity" -> foundProduct.quantity = data.quantity
         }
 
-        foundProduct.totalPrice = foundProduct.quantity * foundProduct.priceByUnit
+        foundProduct.totalPrice = foundProduct.quantity.toBigDecimal() * foundProduct.priceByUnit
+
+        registerService.create(Register(
+            description = "De $previousQuantity para ${foundProduct.quantity}",
+            vault = foundProduct.vault,
+            product = foundProduct,
+            type = foundRegisterType
+        ))
 
         return foundProduct
     }
@@ -79,6 +92,7 @@ class ProductService(
         val foundProduct = this.findById(id)
 
         foundProduct.deletedAt = Instant.now()
+        foundProduct.vault.productQuantity -= 1
     }
 
     fun findByVaultId(
