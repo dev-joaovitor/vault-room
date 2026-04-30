@@ -51,6 +51,23 @@ services:
     networks:
       - "vaultroom"
 
+  client:
+    container_name: "node-react"
+    build:
+      context: "./client"
+      target: development
+      network: host
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      server:
+        condition: service_started
+    networks:
+      - "vaultroom"
+
 volumes:
   vaultroom_pg_data:
   vaultroom_gradle_cache:
