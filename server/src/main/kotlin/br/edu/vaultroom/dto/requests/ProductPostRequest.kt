@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Positive
 import jakarta.validation.constraints.Size
+import java.math.BigDecimal
 
 
 data class ProductPostRequest(
@@ -42,7 +43,7 @@ data class ProductPostRequest(
         value = "9999.99",
         groups = [OnCreate::class]
     )
-    val price_by_unit: Double,
+    val price_by_unit: BigDecimal,
 
     @field:Positive(message = "Vault id must be higher than 0", groups = [OnCreate::class])
     val vault_id: Long,
