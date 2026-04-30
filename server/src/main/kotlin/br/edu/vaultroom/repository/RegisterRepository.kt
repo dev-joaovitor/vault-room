@@ -13,12 +13,13 @@ interface RegisterRepository : JpaRepository<Register, Long> {
         SELECT r FROM Register r
         WHERE r.product.id = :productId
         AND (:type IS NULL OR r.product.type.id = :type)
+        ORDER BY r.createdAt DESC
     """)
     fun findByProductId(
         @Param("productId") productId: Long,
         @Param("type") type: Long?
     ): List<Register?>
 
-    fun findByVaultId(vaultId: Long): List<Register?>
+    fun findByVaultIdOrderByCreatedAtDesc(vaultId: Long): List<Register?>
 }
 

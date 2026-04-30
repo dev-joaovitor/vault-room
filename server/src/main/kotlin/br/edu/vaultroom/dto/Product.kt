@@ -19,7 +19,6 @@ import java.time.Instant
 
 @Entity
 @Table(name = "products")
-@SoftDelete(columnName = "deleted_at", strategy = SoftDeleteType.TIMESTAMP)
 data class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,12 +40,7 @@ data class Product(
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     val updatedAt: Instant = Instant.now(),
 
-    @Column(
-        name = "deleted_at",
-        columnDefinition = "TIMESTAMP WITH TIME ZONE",
-        insertable = false,
-        updatable = false
-    )
+    @SoftDelete(columnName = "deleted_at", strategy = SoftDeleteType.TIMESTAMP)
     var deletedAt: Instant? = null,
 
     @ManyToOne
