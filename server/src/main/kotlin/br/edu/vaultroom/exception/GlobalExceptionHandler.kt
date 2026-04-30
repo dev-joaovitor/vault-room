@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.server.ResponseStatusException
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
@@ -20,6 +21,15 @@ class GlobalExceptionHandler {
             "message" to "Validation failed",
             "data" to listOf<Any>(),
             "errors" to errors
+        ))
+    }
+
+    @ExceptionHandler(ResponseStatusException::class)
+    fun handleValidationExceptions(e: ResponseStatusException): ResponseEntity<Map<String, Any>> {
+        return ResponseEntity.status(e.statusCode).body(mapOf(
+            "success" to false,
+            "message" to (e.reason ?: e.message),
+            "data" to listOf<Any>(),
         ))
     }
 

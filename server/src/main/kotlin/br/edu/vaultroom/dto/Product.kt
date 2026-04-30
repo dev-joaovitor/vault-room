@@ -24,6 +24,8 @@ data class Product(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    var name: String,
+
     var quantity: Int,
 
     @Column(name = "total_price")
@@ -44,7 +46,7 @@ data class Product(
         insertable = false,
         updatable = false
     )
-    val deletedAt: Instant? = null,
+    var deletedAt: Instant? = null,
 
     @ManyToOne
     @JoinColumn(name = "vault_id")
@@ -52,5 +54,5 @@ data class Product(
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    val type: ProductType,
+    var type: ProductType,
 )
