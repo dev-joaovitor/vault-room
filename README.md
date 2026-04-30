@@ -6,6 +6,8 @@ Software de gerenciamento de estoque para a aula de **Programação Orientada a 
 - PostgreSQL (banco de dados)
 - Kotlin (linguagem servidor)
 - Spring Boot (framework servidor)
+- React (biblioteca frontend)
+- Vite (biblioteca de build frontend)
 
 <details>
   <summary><h1>API</h1></summary>
