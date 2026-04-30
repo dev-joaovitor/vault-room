@@ -22,8 +22,7 @@ class VaultService(
     private val vaultRepo: VaultRepository,
     private val productRepo: ProductRepository
 ) {
-    fun findAll() = vaultRepo
-        .findAll(Sort.by(Vault::createdAt.name).descending())
+    fun findAll() = vaultRepo.findAll()
 
     fun findById(id: Long): Vault = vaultRepo.findById(id).orElseThrow {
         ResponseStatusException(HttpStatus.NOT_FOUND, "Vault not found")

@@ -23,5 +23,5 @@ class RegisterService(private val repo: RegisterRepository) {
         productTypeId: Long?
     ) = repo.findByProductId(productId, productTypeId)
 
-    fun findByVaultId(vaultId: Long) = repo.findByVaultId(vaultId)
+    fun findByVaultId(vaultId: Long) = repo.findByVaultIdOrderByCreatedAtDesc(vaultId)
 }

@@ -20,6 +20,7 @@ interface ProductRepository : JpaRepository<Product, Long> {
         WHERE p.vault.id = :vaultId
         AND p.deletedAt IS NULL
         AND (:type IS NULL OR p.type.id = :type)
+        ORDER BY p.createdAt DESC
     """)
     fun findByVaultId(
         @Param("vaultId") vaultId: Long,

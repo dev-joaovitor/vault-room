@@ -116,7 +116,7 @@ class VaultController(
             ))
     }
 
-    @GetMapping("/{id}/products/subtotal")
+    @GetMapping("/{id}/subtotal")
     fun getVaultProductsSubtotal(
         @PathVariable(value = "id") id: Long,
         @RequestParam(value = "type") type: Long?
