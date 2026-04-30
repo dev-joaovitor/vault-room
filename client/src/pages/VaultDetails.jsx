@@ -17,6 +17,7 @@ export default function VaultDetails() {
 
   const [products, setProducts] = useState([]);
   const [registers, setRegisters] = useState([]);
+  const [registerTypes, setRegisterTypes] = useState({});
   const [types, setTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
 
@@ -71,6 +72,19 @@ export default function VaultDetails() {
     setRegisters(response.data.data || []);
   }
 
+  async function loadRegisterTypes() {
+    const response = await api.get(`/registers/types`);
+    
+    const data = response.data.data;
+    const types = {}
+
+    for (const type of data) {
+        types[type.slug] = type;
+    }
+
+    setRegisterTypes(types);
+  }
+
   async function refreshData() {
     try {
       setLoading(true);
@@ -80,7 +94,6 @@ export default function VaultDetails() {
         loadProducts(),
         loadSubtotal(),
         loadCount(),
-        loadRegisters(),
       ]);
     } catch (error) {
       console.error(error);
@@ -126,16 +139,28 @@ export default function VaultDetails() {
 
   function formatDate(date) {
     if (!date) return "-";
-    return new Date(date).toLocaleDateString("pt-BR");
+    
+    const parsedDate = new Date(date);
+    const datePart = parsedDate.toLocaleDateString("pt-BR");
+    const timePart = parsedDate.toLocaleTimeString("pt-BR");
+
+    return `${datePart} ${timePart}`;
   }
 
   useEffect(() => {
     loadTypes();
+    loadRegisterTypes();
   }, []);
 
   useEffect(() => {
     refreshData();
   }, [id, selectedType]);
+
+  useEffect(() => {
+    if (activeTab === "history") {
+      loadRegisters()
+    }
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-[var(--parchment-bg)]">
@@ -288,7 +313,7 @@ export default function VaultDetails() {
                       <td>
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => changeQuantity(p.id, "subtract")}
+                            onClick={() => changeQuantity(p.id, registerTypes.remove.id)}
                             className="rounded bg-[var(--parchment-bg)] p-1 text-[var(--wine-primary)] transition hover:brightness-90"
                           >
                             <Minus size={14} />
@@ -299,7 +324,7 @@ export default function VaultDetails() {
                           </span>
 
                           <button
-                            onClick={() => changeQuantity(p.id, "add")}
+                            onClick={() => changeQuantity(p.id, registerTypes.add.id)}
                             className="rounded bg-[var(--parchment-bg)] p-1 text-[var(--wine-primary)] transition hover:brightness-90"
                           >
                             <Plus size={14} />
