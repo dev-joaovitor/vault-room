@@ -15,8 +15,6 @@ interface ProductRepository : JpaRepository<Product, Long> {
     @Query(value = "UPDATE Product p SET p.deletedAt = :deletedAt WHERE p.vault.id = :vaultId")
     fun softDeleteByVaultId(vaultId: Long, deletedAt: Instant)
 
-    // LEFT JOIN FETCH p.type
-    // LEFT JOIN FETCH p.vault
     @Query( """
         SELECT p FROM Product p
         WHERE p.vault.id = :vaultId
