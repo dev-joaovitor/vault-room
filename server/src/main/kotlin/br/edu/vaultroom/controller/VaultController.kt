@@ -120,7 +120,7 @@ class VaultController(
         @PathVariable(value = "id") id: Long,
         @RequestParam(value = "type") type: Long?
     ): ResponseEntity<Map<String, Any>> {
-        val subtotal = productService.subtotalByVaultId(id, type)
+        val subtotal = ("%.2f".format(productService.subtotalByVaultId(id, type) ?: 0.0)).toDouble()
 
         return ResponseEntity
             .ok(mapOf(

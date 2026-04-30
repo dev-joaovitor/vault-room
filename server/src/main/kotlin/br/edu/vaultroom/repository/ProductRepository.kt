@@ -47,6 +47,6 @@ interface ProductRepository : JpaRepository<Product, Long> {
     fun subtotalByVaultId(
         @Param("vaultId") vaultId: Long,
         @Param("type") type: Long?
-    ): Double
+    ): Double?
 }
 

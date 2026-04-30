@@ -20,8 +20,7 @@ import kotlin.math.absoluteValue
 @Service
 class VaultService(
     private val vaultRepo: VaultRepository,
-    private val productRepo: ProductRepository,
-    private val productService: ProductService
+    private val productRepo: ProductRepository
 ) {
     fun findAll() = vaultRepo
         .findAll(Sort.by(Vault::createdAt.name).descending())
