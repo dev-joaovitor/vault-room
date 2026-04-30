@@ -13,6 +13,7 @@ import jakarta.persistence.Table
 
 import org.hibernate.annotations.SoftDelete
 import org.hibernate.annotations.SoftDeleteType
+import java.math.BigDecimal
 
 import java.time.Instant
 
@@ -28,11 +29,11 @@ data class Product(
 
     var quantity: Int,
 
-    @Column(name = "total_price")
-    var totalPrice: Double,
+    @Column(name = "total_price", precision = 12, scale = 2)
+    var totalPrice: BigDecimal,
 
-    @Column(name = "price_by_unit")
-    var priceByUnit: Double,
+    @Column(name = "price_by_unit", precision = 12, scale = 2)
+    var priceByUnit: BigDecimal,
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     val createdAt: Instant = Instant.now(),

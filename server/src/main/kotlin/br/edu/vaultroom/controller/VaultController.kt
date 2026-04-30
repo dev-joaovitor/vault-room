@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.math.BigDecimal
 
 @RestController
 @RequestMapping("/api/v1/vaults")
@@ -120,13 +121,13 @@ class VaultController(
         @PathVariable(value = "id") id: Long,
         @RequestParam(value = "type") type: Long?
     ): ResponseEntity<Map<String, Any>> {
-        val subtotal = ("%.2f".format(productService.subtotalByVaultId(id, type) ?: 0.0)).toDouble()
+        val subtotal = ("%.2f".format(productService.subtotalByVaultId(id, type) ?: 0.0)).toBigDecimal()
 
         return ResponseEntity
             .ok(mapOf(
                 "success" to true,
                 "message" to "Vault Products count successfuly fetched",
-                "data" to mapOf<String, Double>(
+                "data" to mapOf<String, BigDecimal>(
                     "subtotal" to subtotal
                 )
             ))

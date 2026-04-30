@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Null
 import jakarta.validation.constraints.Positive
 import jakarta.validation.constraints.Size
+import java.math.BigDecimal
 
 
 data class ProductPatchRequest(
@@ -33,7 +34,7 @@ data class ProductPatchRequest(
         value = "9999.99",
         groups = [OnUpdate::class]
     )
-    val price_by_unit: Double,
+    val price_by_unit: BigDecimal,
 
     @field:Positive(message = "Type id must be higher than 0", groups = [OnUpdate::class])
     val type_id: Long?,
