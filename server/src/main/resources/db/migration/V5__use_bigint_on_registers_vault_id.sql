@@ -1,0 +1,3 @@
+ALTER TABLE registers
+ALTER COLUMN vault_id TYPE BIGINT;
+
