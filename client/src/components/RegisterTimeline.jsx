@@ -66,7 +66,7 @@ export default function RegisterTimeline({ registers }) {
               </div>
 
               <p className="text-sm text-[#3a2418]">
-                {register.desc_register}
+                {register.description}
               </p>
 
               {register.product?.name && (
